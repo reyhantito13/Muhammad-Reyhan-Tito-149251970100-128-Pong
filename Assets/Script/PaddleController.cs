@@ -39,21 +39,4 @@ public class PaddleController : MonoBehaviour
     {
         rig.velocity = movement;
     }
-
-    public void SpeedUpPaddle()
-    {
-        speed *= 2;
-    }
-    public void DeactivateSpeedUpPaddle()
-    {
-        speed /= 2;
-    }
-    public void ExtendPaddle(GameObject paddle)
-    {
-        paddle.transform.localScale += new Vector3(0, paddle.transform.localScale.y, 2);
-    }
-    public void DeactivateExtendPaddle(GameObject paddle)
-    {
-        paddle.transform.localScale -= new Vector3(0, paddle.transform.localScale.y/2, 2);
-    }
 }

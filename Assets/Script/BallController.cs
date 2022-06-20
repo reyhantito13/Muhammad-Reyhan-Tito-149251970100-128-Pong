@@ -8,13 +8,13 @@ public class BallController : MonoBehaviour
     public Vector2 resetPosition;
     public float maxVelocity;
     public float minVelocity;
-    public int paddle;
     private Rigidbody2D rig;
 
-    public void Start()
+    private void Start()
     {
         rig = GetComponent<Rigidbody2D>();
         rig.velocity = speed;
+        Debug.Log("Ball Speed : " + rig.velocity);
     }
 
     public void ResetBall()
@@ -25,25 +25,12 @@ public class BallController : MonoBehaviour
 
     public void ActivatePUSpeedUp(float magnitude)
     {
+        Debug.Log("Ball Speed : " + rig.velocity);
         if (rig.velocity.magnitude > maxVelocity)
         {
             rig.velocity = rig.velocity.normalized * maxVelocity;
         }
+
         rig.velocity *= magnitude;
-    }
-    public void DeactivatePUSpeedUp(float magnitude)
-    {
-        rig.velocity /= magnitude;
-    }
-    public void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.name == "Left Paddle")
-        {
-            paddle = 0;
-        }
-        if (collision.gameObject.name == "Right Paddle")
-        {
-            paddle = 1;
-        }
     }
 }
