@@ -8,10 +8,9 @@ public class BallController : MonoBehaviour
     public Vector2 resetPosition;
     public float maxVelocity;
     public float minVelocity;
-
     private Rigidbody2D rig;
 
-    public void Start()
+    private void Start()
     {
         rig = GetComponent<Rigidbody2D>();
         rig.velocity = speed;
@@ -26,11 +25,12 @@ public class BallController : MonoBehaviour
 
     public void ActivatePUSpeedUp(float magnitude)
     {
-
+        Debug.Log("Ball Speed : " + rig.velocity);
         if (rig.velocity.magnitude > maxVelocity)
         {
             rig.velocity = rig.velocity.normalized * maxVelocity;
         }
 
+        rig.velocity *= magnitude;
     }
 }

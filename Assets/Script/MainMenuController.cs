@@ -10,7 +10,6 @@ public class MainMenuController : MonoBehaviour
         SceneManager.LoadScene("Game");
         Debug.Log("Created by Muhammad Reyhan Tito - 149251970100 - 128");
     }
-
     public void ExitGame()
     {
         Debug.Log("Game Closed");
