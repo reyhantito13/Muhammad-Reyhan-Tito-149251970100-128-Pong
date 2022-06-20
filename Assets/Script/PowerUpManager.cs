@@ -10,9 +10,28 @@ public class PowerUpManager : MonoBehaviour
     public int spawnInterval;
     public Vector2 powerUpAreaMin;
     public Vector2 powerUpAreaMax;
-    public List<GameObject> powerUpTemplateList;
 
+    public List<GameObject> powerUpTemplateList;
     private List<GameObject> powerUpList;
+
+    public GameObject ball;
+    public float ballMagnitude;
+    float BallSpeedUpDuration;
+    public bool activeBallSpeedUp;
+
+    public GameObject leftPaddle, rightPaddle;
+
+    float durationExtendUpPadLeft;
+    float durationExtendUpPadRight;
+    float durationSpeedUpPadLeft;
+    float durationSpeedUpPadRight;
+
+    public bool activeExtendUpPadLeft = false;
+    public bool activeExtendUpPadRight = false;
+    public bool activeSpeedUpPadLeft = false;
+    public bool activeSpeedUpPadRight = false;
+
+    [SerializeField] public float DeleteInterval;
 
     private void Start()
     {
@@ -27,6 +46,64 @@ public class PowerUpManager : MonoBehaviour
         {
             GenerateRandomPowerUp();
             timer -= spawnInterval;
+        }
+        // Ball Speed Up Buff Duration
+        if (activeBallSpeedUp == true)
+        {
+            if (BallSpeedUpDuration >= 10)
+            {
+                ball.GetComponent<BallController>().DeactivatePUSpeedUp(ballMagnitude);
+                activeBallSpeedUp = false;
+                BallSpeedUpDuration -= 10;
+            }
+            BallSpeedUpDuration += Time.deltaTime;
+        }
+
+        // Right Paddle Extend Buff Duration
+        if (activeExtendUpPadRight == true)
+        {
+            if (durationExtendUpPadRight >= 5)
+            {
+                rightPaddle.GetComponent<PaddleController>().DeactivateExtendPaddle(rightPaddle);
+                activeExtendUpPadRight = false;   
+                durationExtendUpPadRight -= 5;
+            }
+            durationExtendUpPadRight += Time.deltaTime;
+        }
+        
+        // Left Paddle Extend Buff Duration
+        if (activeExtendUpPadLeft == true)
+        {
+            if (durationExtendUpPadLeft >= 5)
+            {
+                leftPaddle.GetComponent<PaddleController>().DeactivateExtendPaddle(leftPaddle);
+                activeExtendUpPadLeft = false;
+                durationExtendUpPadLeft -= 5;
+            }
+            durationExtendUpPadLeft += Time.deltaTime;
+        }
+        
+        // Right Paddle Speed Up Buff Duration
+        if (activeSpeedUpPadRight == true)
+        {
+            if (durationSpeedUpPadRight >= 5)
+            {
+                rightPaddle.GetComponent<PaddleController>().DeactivateSpeedUpPaddle();
+                activeSpeedUpPadRight = false;
+                durationSpeedUpPadRight -= 5;
+            }
+            durationSpeedUpPadRight += Time.deltaTime;
+        }
+        // Left Paddle Speed Up Buff Duration
+        if (activeSpeedUpPadLeft == true)
+        {
+            if (durationSpeedUpPadLeft >= 5)
+            {
+                leftPaddle.GetComponent<PaddleController>().DeactivateSpeedUpPaddle();
+                activeSpeedUpPadLeft = false;
+                durationSpeedUpPadLeft -= 5;
+            }
+            durationSpeedUpPadLeft += Time.deltaTime;
         }
     }
     public void GenerateRandomPowerUp()

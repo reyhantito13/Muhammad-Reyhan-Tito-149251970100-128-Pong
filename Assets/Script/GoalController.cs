@@ -5,20 +5,20 @@ using UnityEngine;
 public class GoalController : MonoBehaviour
 {
     public Collider2D ball;
-    public bool isRight;
+    public bool isLeft;
     public ScoreManager manager;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision == ball)
         {
-            if (isRight)
+            if (isLeft)
             {
-                manager.AddLeftScore(1);
+                manager.AddRightScore(1);
             }
             else
             {
-                manager.AddRightScore(1);
+                manager.AddLeftScore(1);
             }
         }
     }
